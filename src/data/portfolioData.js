@@ -40,9 +40,15 @@ export const portfolioData = {
       color: "indigo",
       tags: ["React", "Tailwind CSS", "Express", "MongoDB"],
       images: [
+        "./StyleHub/Itemdetail.png",
         "Screenshot 2026-03-12 022902.png",
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop&crop=center",
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop&crop=center"
+        "./StyleHub/Fullmain.png",
+
+        "./StyleHub/LoginPage.png",
+        "./StyleHub/Contact.png",
+        "./StyleHub/Cart.png",
+        "./StyleHub/SearchPage.png",
+
       ]
     },
     {

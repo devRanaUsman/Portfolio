@@ -99,7 +99,7 @@ const ProjectImageCover = ({ project }) => {
   }
 
   return (
-    <div 
+    <div
       className="aspect-video relative overflow-hidden bg-slate-800"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
@@ -112,12 +112,11 @@ const ProjectImageCover = ({ project }) => {
           key={index}
           src={img}
           alt={`${project.title} screenshot ${index + 1}`}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-            index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-700 ${index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
         />
       ))}
-      
+
       {/* Optional: Add a subtle overlay gradient to ensure text readability if needed */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-slate-900/50 to-transparent z-20 pointer-events-none"></div>
     </div>
