@@ -38,6 +38,7 @@ export const portfolioData = {
       description: "Full-stack e-commerce platform with payment integration, inventory management, and admin dashboard.",
       type: "E-Commerce",
       color: "indigo",
+      link: "https://style-hub-fawn.vercel.app/",
       tags: ["React", "Tailwind CSS", "Express", "MongoDB"],
       images: [
         "./StyleHub/Itemdetail.png",
@@ -56,6 +57,7 @@ export const portfolioData = {
       description: "Real-time analytics dashboard with interactive charts, data visualization, and automated reporting.",
       type: "SaaS Dashboard",
       color: "cyan",
+      link: "#",
       tags: ["React", "D3.js", "Node.js"],
       images: [
         "https://placehold.co/600x400/cyan/white?text=DataFlow+Dashboard",
@@ -63,18 +65,29 @@ export const portfolioData = {
       ]
     },
     {
-      title: "LearnHub Platform",
-      description: "Online learning platform with video courses, progress tracking, and certificate generation.",
+      title: "EduFlow",
+      description: "The LMS for Authorities in an institute With RBAC feature and where each role perform its own duty. ",
       type: "EdTech",
       color: "emerald",
-      tags: ["React", "Tailwind CSS", "Express", "MongoDB"],
+      link: "https://eduflow-gules.vercel.app/signin",
+      tags: ["Typescript", "Tailwind CSS", "Express", "MongoDB"],
       images: [
-        "https://placehold.co/600x400/emerald/white?text=LearnHub+Course"
+        "./eduflow/login.png",
+        "./eduflow/Markattendece.png",
+        "./eduflow/PrincipalDashboard.png",
+        "./eduflow/PrincipalDetail.png",
+        "./eduflow/SchoolDetail.png",
+        "./eduflow/SchoolPage.png",
+        "./eduflow/studentDetail.png",
+        "./eduflow/Studentdetail1.png",
+        "./eduflow/Subrole.png",
+        "./eduflow/TeacherDetail.png",
+        "./eduflow/TeacherPage.png",
       ]
     },
-    { title: "QuickBite Delivery", description: "Food ordering app with real-time tracking, restaurant management, and delivery optimization.", type: "Food Delivery", color: "orange", tags: ["React Native", "Firebase", "Maps API"] },
-    { title: "MediCare Portal", description: "Patient management system with appointment booking, medical records, and telemedicine features.", type: "Healthcare", color: "pink", tags: ["Angular", "Django", "WebRTC"] },
-    { title: "HomeFind Properties", description: "Property listing platform with virtual tours, mortgage calculator, and agent booking system.", type: "Real Estate", color: "violet", tags: ["Next.js", "Three.js", "MongoDB"] }
+    { title: "QuickBite Delivery", description: "Food ordering app with real-time tracking, restaurant management, and delivery optimization.", type: "Food Delivery", color: "orange", link: "#", tags: ["React Native", "Firebase", "Maps API"] },
+    { title: "MediCare Portal", description: "Patient management system with appointment booking, medical records, and telemedicine features.", type: "Healthcare", color: "pink", link: "#", tags: ["Angular", "Django", "WebRTC"] },
+    { title: "HomeFind Properties", description: "Property listing platform with virtual tours, mortgage calculator, and agent booking system.", type: "Real Estate", color: "violet", link: "#", tags: ["Next.js", "Three.js", "MongoDB"] }
   ],
   whyMe: [
     { title: "Clear Communication", description: "Regular updates, quick responses, and transparent progress reports throughout the project.", color: "cyan" },

@@ -112,7 +112,7 @@ const ProjectImageCover = ({ project }) => {
           key={index}
           src={img}
           alt={`${project.title} screenshot ${index + 1}`}
-          className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-700 ${index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+          className={`absolute inset-0 w-full h-full object-cover object-top border border-slate-700 transition-opacity duration-700 ${index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
         />
       ))}
@@ -142,20 +142,40 @@ const Portfolio = () => {
 
         <div className="section-animate grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {portfolio.map((project, index) => (
-            <div key={index} className="project-card glass-card rounded-2xl overflow-hidden group">
+            <div key={index} className="project-card glass-card rounded-2xl overflow-hidden group flex flex-col">
               <ProjectImageCover project={project} />
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
                 <p className="text-slate-400 text-sm mb-4">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, tIndex) => (
                     <span key={tIndex} className={`text-xs px-3 py-1 rounded-full ${getBadgeClasses(project.color)}`}>
                       {tag}
                     </span>
                   ))}
                 </div>
+                {project.link && (
+                  <div className="mt-auto pt-3 border-t border-white/10">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors duration-200 group/link"
+                    >
+                      View Project
+                      <svg
+                        className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
