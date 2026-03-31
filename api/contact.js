@@ -7,7 +7,15 @@ export default async function handler(req, res) {
 
     const { name, email, subject, budget, message } = req.body || {};
 
+    console.log('Received contact request:', {
+        hasName: !!name,
+        hasEmail: !!email,
+        hasSubject: !!subject,
+        method: req.method
+    });
+
     if (!name || !email || !subject || !message) {
+        console.warn('Missing required fields:', { name: !!name, email: !!email, subject: !!subject, message: !!message });
         return res.status(400).json({
             success: false,
             message: 'Missing required fields',
@@ -15,30 +23,29 @@ export default async function handler(req, res) {
     }
 
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.error('Environment variables EMAIL_USER or EMAIL_PASS are missing');
+        console.error('CRITICAL: Environment variables EMAIL_USER or EMAIL_PASS are missing on Vercel.');
         return res.status(500).json({
             success: false,
-            message: 'Internal server error: Mailer configuration missing.',
+            message: 'Mailer configuration missing. Please check Vercel Environment Variables.',
+            issue: 'ENV_VARS_MISSING'
         });
     }
 
     try {
+        console.log('Attempting to create transporter for:', process.env.EMAIL_USER);
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false, // Use STARTTLS
+            service: 'gmail',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
             },
-            tls: {
-                rejectUnauthorized: false // Sometimes needed for some hosting providers
-            }
         });
 
-        // Verify connection before sending
+        console.log('Attempting to verify transporter...');
         await transporter.verify();
+        console.log('Transporter verified successfully.');
 
+        console.log('Sending notification email to admin...');
         await transporter.sendMail({
             from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
             replyTo: email,
@@ -55,6 +62,7 @@ export default async function handler(req, res) {
       `,
         });
 
+        console.log('Sending auto-reply to user...');
         await transporter.sendMail({
             from: `"Usman" <${process.env.EMAIL_USER}>`,
             to: email,
@@ -69,17 +77,23 @@ export default async function handler(req, res) {
       `,
         });
 
+        console.log('Emails sent successfully.');
         return res.status(200).json({
             success: true,
             message: 'Emails sent successfully!',
         });
     } catch (error) {
-        console.error('Nodemailer Error:', error);
+        console.error('Nodemailer Error Details:', {
+            message: error.message,
+            code: error.code,
+            command: error.command,
+            stack: error.stack
+        });
         return res.status(500).json({
             success: false,
-            message: 'Failed to send email.',
-            error: error.message, // Return error message for debugging
-            code: error.code // Return error code if available
+            message: 'Failed to send email. Check Vercel logs for help.',
+            error_message: error.message,
+            error_code: error.code
         });
     }
 }
