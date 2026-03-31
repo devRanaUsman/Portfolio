@@ -14,9 +14,19 @@ export default async function handler(req, res) {
         });
     }
 
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.error('Environment variables EMAIL_USER or EMAIL_PASS are missing');
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error: Mailer configuration missing.',
+        });
+    }
+
     try {
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true, // Use SSL
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
