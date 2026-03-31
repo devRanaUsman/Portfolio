@@ -25,13 +25,19 @@ export default async function handler(req, res) {
     try {
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
-            port: 465,
-            secure: true, // Use SSL
+            port: 587,
+            secure: false, // Use STARTTLS
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
             },
+            tls: {
+                rejectUnauthorized: false // Sometimes needed for some hosting providers
+            }
         });
+
+        // Verify connection before sending
+        await transporter.verify();
 
         await transporter.sendMail({
             from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
@@ -68,10 +74,12 @@ export default async function handler(req, res) {
             message: 'Emails sent successfully!',
         });
     } catch (error) {
-        console.error('Error sending email:', error);
+        console.error('Nodemailer Error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to send email.',
+            error: error.message, // Return error message for debugging
+            code: error.code // Return error code if available
         });
     }
 }
